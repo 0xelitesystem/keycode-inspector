@@ -26,6 +26,10 @@ A single `keydown` listener reads the standardized properties off the `KeyboardE
 
 Everything runs in your browser. Keypresses are read locally and never sent anywhere. There are no external scripts, no fonts, no stylesheets, and no analytics. Open the page source to confirm. It works fully offline.
 
+## More
+
+Part of a catalog of single-file browser tools and plain-language references, all MIT licensed and dependency-free: [0xelitesystem.github.io](https://0xelitesystem.github.io/). Built by [elitesystem.ai](https://elitesystem.ai).
+
 ## License
 
 MIT. Copyright 0xelitesystem 2026.
