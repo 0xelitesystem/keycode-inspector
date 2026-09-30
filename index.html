@@ -193,6 +193,7 @@ th, td {
 th { color: var(--ink-soft); font-weight: 600; }
 td { color: var(--ink); word-break: break-all; }
 .history-scroll { max-height: 340px; overflow-y: auto; }
+.history-scroll:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
 input[type="text"] {
   width: 100%;
   background: var(--code-bg);
@@ -321,7 +322,7 @@ footer a:hover { text-decoration: underline; }
 <div class="two-col">
   <div class="section">
     <div class="section-title">History (last 20)</div>
-    <div class="history-scroll">
+    <div class="history-scroll" tabindex="0" role="region" aria-label="Keypress history table">
       <table>
         <thead><tr><th>key</th><th>code</th><th>keyCode</th></tr></thead>
         <tbody id="history-body"></tbody>
@@ -332,8 +333,8 @@ footer a:hover { text-decoration: underline; }
 
   <div class="section">
     <div class="section-title">Common key lookup</div>
-    <input type="text" id="lookup-search" placeholder="Search: enter, arrow, f5, escape ..." spellcheck="false" autocapitalize="off" autocorrect="off">
-    <div class="history-scroll">
+    <input type="text" id="lookup-search" placeholder="Search: enter, arrow, f5, escape ..." spellcheck="false" autocapitalize="off" autocorrect="off" aria-label="Search common keys">
+    <div class="history-scroll" tabindex="0" role="region" aria-label="Common key lookup table">
       <table>
         <thead><tr><th>name</th><th>code</th><th>keyCode</th></tr></thead>
         <tbody id="lookup-body"></tbody>
@@ -422,6 +423,8 @@ $("clear-history").addEventListener("click", () => {
 document.addEventListener("keydown", (e) => {
   // Do not hijack typing into the lookup search box.
   if (e.target && e.target.id === "lookup-search") return;
+  // Let a focused scroll table keep its normal keys, so it can be scrolled and tabbed out of.
+  if (e.target && e.target.classList && e.target.classList.contains("history-scroll")) return;
   if (PREVENT.has(e.key)) e.preventDefault();
   render(e);
 });
